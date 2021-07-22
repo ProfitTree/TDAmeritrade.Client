@@ -9,7 +9,7 @@ using RestSharp.Authenticators;
 using RestSharp.Serializers.SystemTextJson;
 using TDAmeritrade.Client.Models;
 
-namespace TDAmeritrade.Client.Clients
+namespace TDAmeritrade.Client.Clients.Accounts
 {
     public sealed class AccountsClient
     {
@@ -23,7 +23,8 @@ namespace TDAmeritrade.Client.Clients
 
         public async Task<TDAccount> GetAccountAsync(string accountNumber, CancellationToken cancellationToken = default)
         {
-            var request = new RestRequest($"accounts/{accountNumber}");
+            var request = new RestRequest($"accounts/{accountNumber}")
+                .AddQueryParameter("fields", "positions,orders");
             var response = await _client.ExecuteGetAsync<TDAccount>(request, cancellationToken);
             if (response.StatusCode == HttpStatusCode.Unauthorized) throw new Exception(response.Content);
 
@@ -32,7 +33,8 @@ namespace TDAmeritrade.Client.Clients
 
         public async Task<List<TDAccount>> GetAccountsAsync(CancellationToken cancellationToken = default)
         {
-            var request = new RestRequest("accounts");
+            var request = new RestRequest("accounts")
+                .AddQueryParameter("fields", "positions,orders");
             var response = await _client.ExecuteGetAsync<List<TDAccount>>(request, cancellationToken);
             if (response.StatusCode == HttpStatusCode.Unauthorized) throw new Exception(response.Content);
 

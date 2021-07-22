@@ -33,6 +33,8 @@ namespace TDAmeritrade.Console
             {
                 try
                 {
+                    var accounts = await client.Accounts.GetAccountsAsync();
+                    var account = await client.Accounts.GetAccountAsync("124038883");
                     var quotes = await client.Quotes.GetQuotesAsync(new[] { "SPY", "TSLA" });
                     var spy = quotes.First(x => x.Symbol == "SPY");
                     var tsla = quotes.First(x => x.Symbol == "TSLA");

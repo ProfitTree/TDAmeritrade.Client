@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Web;
 using RestSharp;
 using RestSharp.Serializers.SystemTextJson;
+using TDAmeritrade.Client.Clients.Accounts;
 using TDAmeritrade.Client.JsonNamingPolicies;
 using TDAmeritrade.Client.Models;
 using TDAmeritrade.Client.Utilities;
